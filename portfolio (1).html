@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Your Name — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#e8f4ff;
+  --bg2:#d0e8ff;
+  --bg3:#f0f8ff;
+  --accent:#1565c0;
+  --accent2:#1976d2;
+  --accent3:#42a5f5;
+  --accent4:#bbdefb;
+  --dark:#0a1628;
+  --dark2:#132240;
+  --text:#0d1f3c;
+  --text2:#2c4a72;
+  --text3:#5b7fa6;
+  --border:rgba(21,101,192,0.15);
+  --card:rgba(255,255,255,0.72);
+  --r:16px;
+  --shadow:0 20px 60px rgba(21,101,192,0.13);
+  --shadow2:0 4px 20px rgba(21,101,192,0.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 10%,rgba(66,165,245,.22) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 80% at 90% 90%,rgba(21,101,192,.16) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(187,222,251,.28) 0%,transparent 70%);
+  pointer-events:none;
+}
+.z1{position:relative;z-index:1}
+
+/* NAV */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6vw;height:70px;
+  background:rgba(232,244,255,.82);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s;
+}
+#navbar.scrolled{box-shadow:var(--shadow2)}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;
+  color:var(--accent);letter-spacing:-.02em;text-decoration:none;
+}
+.nav-logo span{color:var(--text)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text2);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{
+  padding:.55rem 1.4rem;border-radius:50px;
+  background:var(--accent);color:#fff;font-size:.82rem;font-weight:600;
+  letter-spacing:.04em;text-decoration:none;
+  box-shadow:0 4px 16px rgba(21,101,192,.3);
+  transition:background .2s,transform .2s;
+}
+.nav-cta:hover{background:var(--dark);transform:translateY(-1px)}
+
+#progress{
+  position:fixed;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent3));
+  transform-origin:left;transform:scaleX(0);
+  z-index:1000;transition:transform .08s linear;
+}
+
+/* HERO */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;padding:140px 6vw 80px;
+}
+.hero-avail{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:50px;padding:.4rem 1.1rem;
+  font-size:.75rem;font-family:'Space Mono',monospace;
+  color:var(--accent);letter-spacing:.08em;
+  backdrop-filter:blur(12px);margin-bottom:2rem;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
+@keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,8vw,8rem);
+  font-weight:900;line-height:1;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:1.5rem;
+}
+.hero-h1 .italic{font-style:italic;color:var(--accent);display:block}
+.hero-h1 .light{display:block;font-weight:400;font-size:clamp(2rem,5vw,5rem);color:var(--text2)}
+.hero-sub{
+  max-width:580px;font-size:1.05rem;line-height:1.85;
+  color:var(--text2);margin-bottom:3rem;
+}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:5rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.9rem 2.2rem;border-radius:50px;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  border:none;cursor:pointer;
+  transition:transform .2s,box-shadow .2s,background .2s;
+}
+.btn-solid{background:var(--accent);color:#fff;box-shadow:0 6px 24px rgba(21,101,192,.35)}
+.btn-solid:hover{background:var(--dark);transform:translateY(-2px);box-shadow:0 10px 32px rgba(21,101,192,.4)}
+.btn-ghost{background:var(--card);color:var(--accent);border:1.5px solid var(--border);backdrop-filter:blur(12px)}
+.btn-ghost:hover{background:rgba(255,255,255,.9);transform:translateY(-2px);box-shadow:var(--shadow2)}
+
+.hero-stats{
+  display:flex;gap:3.5rem;flex-wrap:wrap;
+  padding-top:3rem;border-top:1px solid var(--border);
+}
+.hstat-n{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--accent);line-height:1}
+.hstat-l{font-size:.78rem;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-top:.25rem}
+
+/* MARQUEE */
+.marquee-wrap{
+  overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,.35);backdrop-filter:blur(10px);
+  padding:.85rem 0;position:relative;z-index:1;
+}
+.marquee-track{
+  display:flex;gap:3rem;
+  animation:marquee 24s linear infinite;white-space:nowrap;
+}
+.marquee-track:hover{animation-play-state:paused}
+.m-item{
+  font-family:'Space Mono',monospace;font-size:.76rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text2);display:flex;align-items:center;gap:.8rem;flex-shrink:0;
+}
+.m-dot{color:var(--accent);font-size:.6rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:110px 6vw;position:relative;z-index:1}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.1;color:var(--text);margin-bottom:1.1rem}
+.sec-h em{font-style:italic;color:var(--accent)}
+.sec-p{font-size:1rem;line-height:1.8;color:var(--text2);max-width:560px;margin-bottom:4rem}
+.container{max-width:1240px;margin:0 auto}
+
+/* ABOUT */
+#about{background:transparent}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:start}
+.about-txt p{font-size:1rem;line-height:1.9;color:var(--text2);margin-bottom:1.1rem}
+.about-txt p strong{color:var(--text)}
+.social-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
+.s-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.1rem;border-radius:50px;
+  font-size:.82rem;font-weight:500;
+  border:1.5px solid var(--border);color:var(--accent2);
+  text-decoration:none;background:var(--card);backdrop-filter:blur(10px);
+  transition:background .2s,color .2s,transform .2s;
+}
+.s-pill:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+
+.info-row{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 0;border-bottom:1px solid var(--border);
+}
+.info-row:first-child{border-top:1px solid var(--border)}
+.info-ico{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(21,101,192,.08);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.il{font-size:.73rem;color:var(--text3);letter-spacing:.05em;text-transform:uppercase}
+.iv{font-size:.91rem;font-weight:500;color:var(--text);margin-top:.1rem}
+
+.hobby-sec{margin-top:2.5rem}
+.hobby-sec h4{font-size:.82rem;font-weight:600;color:var(--text2);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.9rem}
+.hchips{display:flex;flex-wrap:wrap;gap:.55rem}
+.hchip{padding:.35rem .95rem;border-radius:50px;font-size:.78rem;background:rgba(21,101,192,.07);border:1px solid rgba(21,101,192,.15);color:var(--accent2)}
+
+/* EXPERTISE */
+#expertise{background:rgba(255,255,255,.28);backdrop-filter:blur(6px)}
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.5rem}
+.exp-card{
+  background:var(--card);border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r);padding:2rem;box-shadow:var(--shadow2);
+  backdrop-filter:blur(16px);transition:transform .3s,box-shadow .3s;
+}
+.exp-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.exp-num{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.12em;color:var(--accent);margin-bottom:1rem}
+.exp-name{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;color:var(--text);margin-bottom:.7rem}
+.exp-desc{font-size:.86rem;line-height:1.7;color:var(--text2);margin-bottom:1.2rem}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.exp-tag{padding:.22rem .62rem;border-radius:50px;font-size:.72rem;background:linear-gradient(135deg,rgba(21,101,192,.07),rgba(66,165,245,.09));border:1px solid rgba(21,101,192,.14);color:var(--accent2)}
+
+/* PROJECTS */
+#projects{background:transparent}
+.proj-list{display:flex;flex-direction:column;gap:1.4rem}
+.proj-item{
+  display:grid;grid-template-columns:72px 1fr 48px;
+  gap:2rem;align-items:center;
+  background:var(--card);border:1px solid rgba(255,255,255,.9);
+  border-radius:var(--r);padding:1.8rem 2.5rem;
+  box-shadow:var(--shadow2);backdrop-filter:blur(16px);
+  text-decoration:none;color:inherit;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.proj-item:hover{transform:translateX(8px);box-shadow:var(--shadow);border-color:rgba(21,101,192,.28)}
+.proj-emoji{
+  width:66px;height:66px;border-radius:14px;
+  background:linear-gradient(135deg,var(--bg2),rgba(66,165,245,.2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.9rem;flex-shrink:0;border:1px solid var(--border);
+}
+.proj-cats{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:.45rem}
+.proj-cat{font-size:.68rem;font-family:'Space Mono',monospace;letter-spacing:.07em;color:var(--accent);background:rgba(21,101,192,.07);padding:.15rem .5rem;border-radius:50px;border:1px solid rgba(21,101,192,.12)}
+.proj-name{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
+.proj-desc{font-size:.87rem;color:var(--text2);line-height:1.6}
+.proj-arr{font-size:1.4rem;color:var(--text3);transition:transform .3s,color .3s}
+.proj-item:hover .proj-arr{transform:translate(4px,-4px);color:var(--accent)}
+
+/* ACHIEVEMENTS */
+#achievements{background:rgba(255,255,255,.28);backdrop-filter:blur(6px)}
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent3),transparent)}
+.tl-item{position:relative;margin-bottom:3rem}
+.tl-item::before{content:'';position:absolute;left:-2.9rem;top:.4rem;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 4px rgba(21,101,192,.2)}
+.tl-date{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--accent);margin-bottom:.45rem;text-transform:uppercase}
+.tl-title{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.tl-org{font-size:.83rem;color:var(--text3);margin-bottom:.7rem}
+.tl-desc{font-size:.89rem;line-height:1.75;color:var(--text2);max-width:700px}
+.tl-badge{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;padding:.28rem .85rem;border-radius:50px;font-size:.73rem;font-weight:600;background:rgba(34,197,94,.1);color:#16a34a;border:1px solid rgba(34,197,94,.2)}
+
+/* EDUCATION */
+#education{background:transparent}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem}
+.edu-card{background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);padding:2rem;box-shadow:var(--shadow2);backdrop-filter:blur(16px);transition:transform .3s}
+.edu-card:hover{transform:translateY(-6px)}
+.edu-yr{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--accent3);margin-bottom:.9rem}
+.edu-deg{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;color:var(--text);margin-bottom:.28rem}
+.edu-inst{font-size:.86rem;color:var(--accent2);font-weight:500;margin-bottom:.55rem}
+.edu-desc{font-size:.82rem;line-height:1.7;color:var(--text2)}
+
+/* CTA BAND */
+.cta-band{
+  position:relative;z-index:1;background:var(--accent);
+  padding:90px 6vw;text-align:center;overflow:hidden;
+}
+.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 0%,rgba(66,165,245,.3),transparent);pointer-events:none}
+.cta-band h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;line-height:1.1;position:relative;margin-bottom:1.2rem}
+.cta-band h2 em{font-style:italic;opacity:.8}
+.cta-band p{font-size:1rem;color:rgba(255,255,255,.72);max-width:500px;margin:0 auto 2.5rem}
+.btn-white{background:#fff;color:var(--accent);box-shadow:0 8px 32px rgba(0,0,0,.18)}
+.btn-white:hover{background:var(--bg);transform:translateY(-2px)}
+
+/* CONTACT */
+#contact{background:rgba(255,255,255,.28);backdrop-filter:blur(6px)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.contact-form-wrap{background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);padding:2.5rem;box-shadow:var(--shadow);backdrop-filter:blur(18px)}
+.form-group{margin-bottom:1.4rem}
+label{display:block;font-size:.76rem;font-weight:600;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem}
+input,textarea{width:100%;padding:.85rem 1.1rem;border-radius:10px;border:1.5px solid var(--border);background:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;font-size:.9rem;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+textarea{resize:vertical;min-height:130px}
+.ci-list{display:flex;flex-direction:column;gap:1rem}
+.ci-card{display:flex;align-items:center;gap:1.2rem;background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:12px;padding:1.15rem 1.5rem;text-decoration:none;box-shadow:var(--shadow2);backdrop-filter:blur(14px);transition:transform .2s,box-shadow .2s}
+.ci-card:hover{transform:translateX(6px);box-shadow:var(--shadow)}
+.ci-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.ci-card strong{display:block;font-size:.87rem;font-weight:600;color:var(--text)}
+.ci-card span{font-size:.79rem;color:var(--text3)}
+
+/* FAQ */
+#faq{background:transparent}
+.faq-list{max-width:780px}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;cursor:pointer;padding:1.35rem 0;text-align:left;font-family:'Outfit',sans-serif;font-size:1rem;font-weight:500;color:var(--text);transition:color .2s}
+.faq-q:hover{color:var(--accent)}
+.faq-icon{font-size:1.2rem;color:var(--accent);flex-shrink:0;transition:transform .3s}
+.faq-a{max-height:0;overflow:hidden;font-size:.9rem;line-height:1.8;color:var(--text2);transition:max-height .35s ease,padding .3s}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.3rem}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:var(--dark2);padding:65px 6vw 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:#fff;margin-bottom:.8rem}
+.footer-tagline{font-size:.84rem;color:rgba(255,255,255,.42);line-height:1.7}
+.footer-col h4{font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:1rem}
+.footer-col a{display:block;font-size:.86rem;color:rgba(255,255,255,.62);text-decoration:none;margin-bottom:.55rem;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:rgba(255,255,255,.32)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.hero-avail{animation:fadeUp .6s ease both}
+.hero-h1{animation:fadeUp .7s .1s ease both}
+.hero-sub{animation:fadeUp .7s .2s ease both}
+.hero-actions{animation:fadeUp .7s .3s ease both}
+.hero-stats{animation:fadeUp .7s .4s ease both}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .about-grid,.contact-grid,.footer-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .proj-item{grid-template-columns:60px 1fr}
+  .proj-arr{display:none}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero-h1{font-size:3rem}
+  .proj-item{grid-template-columns:1fr;padding:1.5rem}
+  .proj-emoji{display:none}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="navbar" class="z1">
+  <a href="#" class="nav-logo"><span>Your</span>Name.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="z1">
+  <div class="container">
+    <div class="hero-avail"><span class="dot"></span>Available for opportunities</div>
+    <h1 class="hero-h1">
+      Crafting Digital<br>
+      <span class="italic">Experiences</span>
+      <span class="light">that Inspire &amp; Deliver.</span>
+    </h1>
+    <p class="hero-sub">
+      I'm a passionate developer &amp; builder at <strong>EvolveX</strong>, turning bold ideas into clean, scalable digital products. From sleek interfaces to robust backend systems — I build things that matter.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-solid">View My Work ↓</a>
+      <a href="#contact" class="btn btn-ghost">Let's Connect →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Projects Built</div></div>
+      <div class="hstat"><div class="hstat-n">2+</div><div class="hstat-l">Years Learning</div></div>
+      <div class="hstat"><div class="hstat-n">∞</div><div class="hstat-l">Curiosity</div></div>
+      <div class="hstat"><div class="hstat-n">1×</div><div class="hstat-l">Hackathon Win</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap z1">
+  <div class="marquee-track">
+    <span class="m-item">React.js <span class="m-dot">✦</span></span>
+    <span class="m-item">Node.js <span class="m-dot">✦</span></span>
+    <span class="m-item">Python <span class="m-dot">✦</span></span>
+    <span class="m-item">Next.js <span class="m-dot">✦</span></span>
+    <span class="m-item">MongoDB <span class="m-dot">✦</span></span>
+    <span class="m-item">Tailwind CSS <span class="m-dot">✦</span></span>
+    <span class="m-item">AI / ML <span class="m-dot">✦</span></span>
+    <span class="m-item">Firebase <span class="m-dot">✦</span></span>
+    <span class="m-item">PostgreSQL <span class="m-dot">✦</span></span>
+    <span class="m-item">Docker <span class="m-dot">✦</span></span>
+    <span class="m-item">Git &amp; GitHub <span class="m-dot">✦</span></span>
+    <span class="m-item">REST APIs <span class="m-dot">✦</span></span>
+    <span class="m-item">React.js <span class="m-dot">✦</span></span>
+    <span class="m-item">Node.js <span class="m-dot">✦</span></span>
+    <span class="m-item">Python <span class="m-dot">✦</span></span>
+    <span class="m-item">Next.js <span class="m-dot">✦</span></span>
+    <span class="m-item">MongoDB <span class="m-dot">✦</span></span>
+    <span class="m-item">Tailwind CSS <span class="m-dot">✦</span></span>
+    <span class="m-item">AI / ML <span class="m-dot">✦</span></span>
+    <span class="m-item">Firebase <span class="m-dot">✦</span></span>
+    <span class="m-item">PostgreSQL <span class="m-dot">✦</span></span>
+    <span class="m-item">Docker <span class="m-dot">✦</span></span>
+    <span class="m-item">Git &amp; GitHub <span class="m-dot">✦</span></span>
+    <span class="m-item">REST APIs <span class="m-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="eyebrow reveal">// About Me</p>
+    <h2 class="sec-h reveal">I am <em>Your Name</em></h2>
+    <div class="about-grid">
+      <div class="about-txt">
+        <p class="reveal">I'm a passionate developer currently building exciting things at <strong>EvolveX</strong>. I love turning ambitious ideas into reality through clean, efficient code and intuitive user experiences that people actually enjoy.</p>
+        <p class="reveal">Hackathon enthusiast 🏆 — I thrive under pressure, ship fast, and solve real problems. Whether it's a 24-hour sprint or a long-term product, I bring the same relentless energy every single time.</p>
+        <p class="reveal">Currently exploring <strong>AI/ML, System Design,</strong> and <strong>Cloud Architecture</strong> to level up my craft. I believe in building in public and learning from the community.</p>
+        <div class="social-row reveal">
+          <a href="https://linkedin.com/in/yourprofile" class="s-pill" target="_blank">💼 LinkedIn</a>
+          <a href="https://github.com/yourusername" class="s-pill" target="_blank">⌥ GitHub</a>
+          <a href="mailto:your@email.com" class="s-pill">📧 Email Me</a>
+          <a href="#" class="s-pill">📄 Resume</a>
+        </div>
+      </div>
+      <div>
+        <div class="info-row reveal">
+          <div class="info-ico">🏢</div>
+          <div><div class="il">Currently at</div><div class="iv">EvolveX — Building &amp; Innovating</div></div>
+        </div>
+        <div class="info-row reveal">
+          <div class="info-ico">🎓</div>
+          <div><div class="il">Education</div><div class="iv">Your Degree — Your University</div></div>
+        </div>
+        <div class="info-row reveal">
+          <div class="info-ico">📍</div>
+          <div><div class="il">Location</div><div class="iv">Your City, Country</div></div>
+        </div>
+        <div class="info-row reveal">
+          <div class="info-ico">🌱</div>
+          <div><div class="il">Currently Learning</div><div class="iv">AI/ML · System Design · Cloud</div></div>
+        </div>
+        <div class="hobby-sec reveal">
+          <h4>// Beyond the screen</h4>
+          <div class="hchips">
+            <span class="hchip">🎮 Gaming</span>
+            <span class="hchip">📚 Reading</span>
+            <span class="hchip">💪 Fitness</span>
+            <span class="hchip">🎵 Music</span>
+            <span class="hchip">🌐 Open Source</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <p class="eyebrow reveal">// Expertise</p>
+    <h2 class="sec-h reveal">What I work <em>with</em></h2>
+    <p class="sec-p reveal">A full-stack toolkit built through building, breaking, and shipping real products.</p>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-num">01 —</div>
+        <div class="exp-name">Frontend Development</div>
+        <div class="exp-desc">Crafting pixel-perfect, responsive interfaces. Fast, accessible, and beautifully animated UIs users love.</div>
+        <div class="exp-tags"><span class="exp-tag">React.js</span><span class="exp-tag">Next.js</span><span class="exp-tag">Tailwind</span><span class="exp-tag">HTML/CSS</span></div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-num">02 —</div>
+        <div class="exp-name">Backend Architecture</div>
+        <div class="exp-desc">Building scalable APIs and robust backend systems that handle real-world load without breaking a sweat.</div>
+        <div class="exp-tags"><span class="exp-tag">Node.js</span><span class="exp-tag">Express</span><span class="exp-tag">Python</span><span class="exp-tag">REST APIs</span></div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-num">03 —</div>
+        <div class="exp-name">Database Design</div>
+        <div class="exp-desc">Structuring data for performance and scale. From relational to NoSQL and everything in between.</div>
+        <div class="exp-tags"><span class="exp-tag">MongoDB</span><span class="exp-tag">PostgreSQL</span><span class="exp-tag">Firebase</span><span class="exp-tag">MySQL</span></div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-num">04 —</div>
+        <div class="exp-name">AI / ML Integration</div>
+        <div class="exp-desc">Leveraging AI tools and APIs to build intelligent features — from LLM integrations to custom ML pipelines.</div>
+        <div class="exp-tags"><span class="exp-tag">Python</span><span class="exp-tag">TensorFlow</span><span class="exp-tag">OpenAI</span><span class="exp-tag">RAG</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="eyebrow reveal">// Selected Work</p>
+    <h2 class="sec-h reveal">Things I've <em>built</em></h2>
+    <p class="sec-p reveal">A curated selection of projects — each one a real lesson learned.</p>
+    <div class="proj-list">
+      <a href="#" class="proj-item reveal">
+        <div class="proj-emoji">🚀</div>
+        <div>
+          <div class="proj-cats"><span class="proj-cat">Full Stack</span><span class="proj-cat">React</span><span class="proj-cat">Node.js</span></div>
+          <div class="proj-name">Project One — Your Flagship App</div>
+          <div class="proj-desc">A full-stack web application solving a real-world problem. Built with a modern tech stack and deployed live for real users.</div>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+      <a href="#" class="proj-item reveal">
+        <div class="proj-emoji">🤖</div>
+        <div>
+          <div class="proj-cats"><span class="proj-cat">AI/ML</span><span class="proj-cat">Python</span><span class="proj-cat">FastAPI</span></div>
+          <div class="proj-name">Project Two — AI-Powered Tool</div>
+          <div class="proj-desc">An intelligent tool built at EvolveX that automates complex workflows using LLMs and custom ML models. Delivered real impact.</div>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+      <a href="#" class="proj-item reveal">
+        <div class="proj-emoji">🎨</div>
+        <div>
+          <div class="proj-cats"><span class="proj-cat">Next.js</span><span class="proj-cat">UI/UX</span><span class="proj-cat">Firebase</span></div>
+          <div class="proj-name">Project Three — Beautiful Platform</div>
+          <div class="proj-desc">A beautifully designed platform focused on user experience with real-time updates, auth, and a responsive interface.</div>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+      <a href="#" class="proj-item reveal">
+        <div class="proj-emoji">♻️</div>
+        <div>
+          <div class="proj-cats"><span class="proj-cat">Hackathon</span><span class="proj-cat">EvolveX</span><span class="proj-cat">Impact</span></div>
+          <div class="proj-name">Project Four — Hackathon Winner</div>
+          <div class="proj-desc">Won at a 24-hour national hackathon. An AI marketplace that predicts resale value, negotiates prices, and matches buyers in real time.</div>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <p class="eyebrow reveal">// Experience &amp; Milestones</p>
+    <h2 class="sec-h reveal">The <em>journey</em> so far</h2>
+    <p class="sec-p reveal">Hackathons, internships, and everything in between.</p>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">Present</div>
+        <div class="tl-title">Software Engineering Intern</div>
+        <div class="tl-org">EvolveX</div>
+        <div class="tl-desc">Working on high-performance scalable digital solutions. Participating in full-stack architecture discussions and contributing to core product features every day.</div>
+        <div class="tl-badge">🟢 Ongoing</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Hackathon — 24 Hours</div>
+        <div class="tl-title">🏆 National Hackathon Winner</div>
+        <div class="tl-org">Zignasa 2k25 — MLR Institute of Technology</div>
+        <div class="tl-desc">Won in the Agentic AI domain. Built an AI marketplace that predicts resale value of recyclable materials, negotiates prices, and matches sellers with recyclers using LLMs.</div>
+        <div class="tl-badge">🏆 Winner</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Hackathon — 36 Hours</div>
+        <div class="tl-title">National Level Hackathon Participant</div>
+        <div class="tl-org">CodeStorm 2k26 — NRCM, Hyderabad</div>
+        <div class="tl-desc">Built an AI Legal Drafting and Assistant Tool — an intelligent legal document generation and assistance system at a 36-hour national hackathon.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Hackathon — 24 Hours</div>
+        <div class="tl-title">Innovation Hackathon Participant</div>
+        <div class="tl-org">IPEC Hyperspace — IPEC, Ghaziabad</div>
+        <div class="tl-desc">Built Aegis.ai — a Disaster Predicting and Emergency Services AI that performs situational analysis and coordinates emergency response in real time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="eyebrow reveal">// Learning Path</p>
+    <h2 class="sec-h reveal">Academic <em>foundation</em></h2>
+    <p class="sec-p reveal">The institutions and classrooms that shaped how I think and build.</p>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-yr">Present</div>
+        <div class="edu-deg">Bachelor of Technology</div>
+        <div class="edu-inst">Your University / Institute</div>
+        <div class="edu-desc">Studying your engineering field. Developing expertise in programming, systems design, and applied technology.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-yr">Year</div>
+        <div class="edu-deg">Intermediate Education</div>
+        <div class="edu-inst">Your Junior College</div>
+        <div class="edu-desc">Maths, Physics &amp; Chemistry. Built a strong analytical foundation for technical problem solving.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-yr">Year</div>
+        <div class="edu-deg">Secondary Education</div>
+        <div class="edu-inst">Your School</div>
+        <div class="edu-desc">Early cultivation of scientific curiosity, discipline, and a deep love for technology.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Less talk, more <em>code.</em><br>Let's build something exceptional.</h2>
+  <p>No bloated meetings. No pitch decks. Just clean engineering and results that actually move the needle.</p>
+  <a href="#contact" class="btn btn-white">Get in touch →</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="eyebrow reveal">// Contact</p>
+    <h2 class="sec-h reveal">Let's build something <em>together</em></h2>
+    <p class="sec-p reveal">Have an idea, an opportunity, or just want to say hi? My inbox is always open.</p>
+    <div class="contact-grid">
+      <div class="contact-form-wrap reveal">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe"/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@example.com"/></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project or opportunity..."></textarea></div>
+        <button class="btn btn-solid" style="width:100%;justify-content:center" onclick="sendMsg(this)">Send Message ✦</button>
+      </div>
+      <div class="ci-list reveal">
+        <a href="mailto:your@email.com" class="ci-card">
+          <div class="ci-ico" style="background:rgba(21,101,192,.1)">📧</div>
+          <div><strong>Email</strong><span>your@email.com</span></div>
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" class="ci-card" target="_blank">
+          <div class="ci-ico" style="background:rgba(10,102,194,.1)">💼</div>
+          <div><strong>LinkedIn</strong><span>linkedin.com/in/yourprofile</span></div>
+        </a>
+        <a href="https://github.com/yourusername" class="ci-card" target="_blank">
+          <div class="ci-ico" style="background:rgba(36,41,47,.08)">⌥</div>
+          <div><strong>GitHub</strong><span>github.com/yourusername</span></div>
+        </a>
+        <a href="#" class="ci-card">
+          <div class="ci-ico" style="background:rgba(29,161,242,.1)">🐦</div>
+          <div><strong>Twitter / X</strong><span>@yourhandle</span></div>
+        </a>
+        <a href="#" class="ci-card" style="border-style:dashed;background:rgba(21,101,192,.03)">
+          <div class="ci-ico">📄</div>
+          <div><strong>Download Resume</strong><span>View my full CV</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <p class="eyebrow reveal">// FAQs</p>
+    <h2 class="sec-h reveal">Everything you <em>need to know</em></h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">What is your main tech stack? <span class="faq-icon">+</span></button>
+        <div class="faq-a">I specialize in React, Next.js, and Node.js for web apps. I also work with Python for AI/ML, MongoDB and PostgreSQL for databases, and deploy on Vercel and Netlify.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Are you available for freelance work? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes! I'm actively open to new projects — whether you need a full-stack app from scratch or extra hands on a complex frontend. Let's talk.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you also do UI/UX design? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes! I have a strong eye for design and regularly design in Figma before writing code. I often design and build the products I ship end-to-end.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">How long does a typical project take? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Depending on scope — an MVP or landing page can take 2–4 weeks, a full-scale web app 2–3 months. I always provide clear timelines upfront.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">How can we get started? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Drop me an email or use the contact form above with a quick overview of your project. If we're a good fit, we'll hop on a call to map out next steps.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">YourName.</div>
+        <div class="footer-tagline">Building digital experiences that inspire, convert, and last. Available for opportunities &amp; collaborations.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Expertise</h4>
+        <a href="#">Frontend</a>
+        <a href="#">Backend</a>
+        <a href="#">AI / ML</a>
+        <a href="#">UI / UX</a>
+      </div>
+      <div class="footer-col">
+        <h4>Socials</h4>
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter / X</a>
+        <a href="mailto:your@email.com">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 YourName. All Rights Reserved.</span>
+      <span>Built for EvolveX Portfolio Challenge 🚀</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const prog = document.getElementById('progress');
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - innerHeight);
+  prog.style.transform = `scaleX(${pct})`;
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 65);
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function sendMsg(btn) {
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#22c55e';
+  setTimeout(() => { btn.textContent = 'Send Message ✦'; btn.style.background = ''; }, 3000);
+}
+</script>
+</body>
+</html>
